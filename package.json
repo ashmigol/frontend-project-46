@@ -6,9 +6,18 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "gendiff": "bin/gendiff.js"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ashmigol/frontend-project-46.git"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "commander": "^11.0.0",
     "diff": "^5.1.0"
   }
 }
