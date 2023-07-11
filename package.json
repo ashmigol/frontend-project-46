@@ -9,9 +9,6 @@
   "bin": {
     "gendiff": "bin/gendiff.js"
   },
-  "simple-git-hooks": {
-    "pre-push": "make lint"
-  },
   "type": "module",
   "repository": {
     "type": "git",
