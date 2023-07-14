@@ -5,6 +5,6 @@ import path from 'path';
 
 test('genDiff', () => {
   expect(
-    genDiff('__fixtures__/testFile.json', '__fixtures__/testFile.json')
+    genDiff('__fixtures__/testFile.json', '__fixtures__/testFile2.json')
   ).toEqual(fs.readFileSync('./__fixtures__/testResultIndex', 'utf8'));
 });
