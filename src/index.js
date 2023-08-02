@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import parse from './parses.js';
+import stringify from '../formatters/stylish.js';
 
 const extractFormat = (filePath) => path.extname(filePath);
 //const getData = filePath;
@@ -32,9 +33,9 @@ const gendiff = (filepath1, filepath2) => {
           obj.key === arrayJson1[i].key && obj.value === arrayJson1[i].value
       )
     ) {
-      result.push(`  ${arrayJson1[i].key}: ${arrayJson1[i].value}`);
+      result.push(`  ${arrayJson1[i].key}: ${stringify(arrayJson1[i].value)}`);
     } else {
-      result.push(`- ${arrayJson1[i].key}: ${arrayJson1[i].value}`);
+      result.push(`- ${arrayJson1[i].key}: ${stringify(arrayJson1[i].value)}`);
     }
   }
 
@@ -45,7 +46,7 @@ const gendiff = (filepath1, filepath2) => {
           obj.key === arrayJson2[j].key && obj.value === arrayJson2[j].value
       )
     ) {
-      result.push(`+ ${arrayJson2[j].key}: ${arrayJson2[j].value}`);
+      result.push(`+ ${arrayJson2[j].key}: ${stringify(arrayJson2[j].value)}`);
     }
   }
 
