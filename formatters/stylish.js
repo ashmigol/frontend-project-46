@@ -12,12 +12,8 @@ const stringify = (value, replacer = '.', count = 4, depth = 1) => {
   const currentIndent = replacer.repeat(indentSize);
   const lastIndent = replacer.repeat(indentSize - count);
 
-  if (value === null) {
-    value = 'null';
-  }
-
   if (!_.isObject(value)) {
-    return value.toString();
+    return String(value);
   }
 
   const properties = Object.entries(value).map(

@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import parse from './parses.js';
-import stringify from '../formatters/stylish.js';
 
 const extractFormat = (filePath) => path.extname(filePath);
 //const getData = filePath;
@@ -26,38 +25,39 @@ const gendiff = (filepath1, filepath2) => {
   }));
   const result = [];
 
-  for (let i = 0; i < arrayJson1.length; i += 1) {
-    if (
-      arrayJson2.some(
-        (obj) =>
-          obj.key === arrayJson1[i].key && obj.value === arrayJson1[i].value
-      )
-    ) {
-      result.push(`  ${arrayJson1[i].key}: ${stringify(arrayJson1[i].value)}`);
-    } else {
-      result.push(`- ${arrayJson1[i].key}: ${stringify(arrayJson1[i].value)}`);
-    }
-  }
+  const compareObjects = (obj1, obj2, depth = 0) => {
+    const keys1 = Object.keys(obj1);
+    const keys2 = Object.keys(obj2);
 
-  for (let j = 0; j < arrayJson2.length; j += 1) {
-    if (
-      !arrayJson1.some(
-        (obj) =>
-          obj.key === arrayJson2[j].key && obj.value === arrayJson2[j].value
-      )
-    ) {
-      result.push(`+ ${arrayJson2[j].key}: ${stringify(arrayJson2[j].value)}`);
-    }
-  }
+    keys1.forEach((key) => {
+      if (keys2.includes(key)) {
+        const value1 = obj1[key];
+        const value2 = obj2[key];
 
-  result.sort((str1, str2) => {
-    const char1 = str1[2]; // Получить третий символ первой строки
-    const char2 = str2[2];
+        if (typeof value1 === 'object' && typeof value2 === 'object') {
+          const nestedDiff = compareObjects(value1, value2, depth + 1);
+          if (nestedDiff !== '') {
+            result.push(`${' '.repeat(depth * 2)}  ${key}: ${nestedDiff}`);
+          }
+        } else if (value1 !== value2) {
+          result.push(`${' '.repeat(depth * 2)}- ${key}: ${JSON.stringify(value1)}`);
+          result.push(`${' '.repeat(depth * 2)}+ ${key}: ${JSON.stringify(value2)}`);
+        }
+      } else {
+        result.push(`${' '.repeat(depth * 2)}- ${key}: ${JSON.stringify(obj1[key])}`);
+      }
+    });
 
-    if (char1 < char2) {
-      return -1; // str1 должна быть перед str2
-    }
-  });
+    keys2.forEach((key) => {
+      if (!keys1.includes(key)) {
+        result.push(`${'-'.repeat(depth * 2)}+ ${key}: ${JSON.stringify(obj2[key])}`);
+      }
+    });
+  };
+
+  compareObjects(makeObject1, makeObject2);
+
+  result.sort();
 
   const resultToString = result.join('\n');
   return resultToString;
