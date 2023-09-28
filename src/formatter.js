@@ -9,8 +9,19 @@ const formatDiffTree = (diffTree) => {
         node.forEach((item) => {
           result += formatNode(item, depth);
         });
+      } else if (typeof node === "object") {
+        // Если узел является объектом, сортируем ключи по алфавиту
+        const sortedKeys = Object.keys(node).sort();
+  
+        sortedKeys.forEach((key) => {
+          const value = node[key];
+          result += `${indent}${key}: ${value}\n`; // Добавляем отформатированный ключ и значение в результат
+  
+          // Рекурсивно форматируем вложенные узлы
+          formatNode(value, depth + 1);
+        });
       } else {
-        // Если узел является строкой, добавляем его в результирующую строку с соответствующим форматированием
+        // Если узел является строкой или другим примитивным значением, добавляем его в результирующую строку с соответствующим форматированием
         result += `${indent}${node}\n`;
       }
     };
