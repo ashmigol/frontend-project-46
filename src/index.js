@@ -1,6 +1,8 @@
-import fs from 'fs';
-import path from 'path';
-import parse from './parses.js';
+import fs from "fs";
+import path from "path";
+import parse from "./parses.js";
+import buildDiffTree from './buildtree.js'
+import formatDiffTree from './formatter.js';
 
 const extractFormat = (filePath) => path.extname(filePath);
 //const getData = filePath;
@@ -15,52 +17,13 @@ const getData = (filepath) => {
 const gendiff = (filepath1, filepath2) => {
   const makeObject1 = getData(filepath1);
   const makeObject2 = getData(filepath2);
-  const arrayJson1 = Object.entries(makeObject1).map(([key, value]) => ({
-    key,
-    value,
-  }));
-  const arrayJson2 = Object.entries(makeObject2).map(([key, value]) => ({
-    key,
-    value,
-  }));
-  const result = [];
 
-  const compareObjects = (obj1, obj2, depth = 0) => {
-    const keys1 = Object.keys(obj1);
-    const keys2 = Object.keys(obj2);
 
-    keys1.forEach((key) => {
-      if (keys2.includes(key)) {
-        const value1 = obj1[key];
-        const value2 = obj2[key];
+  const diffTree = buildDiffTree(makeObject1, makeObject2);
+  const formattedDiff = formatDiffTree(diffTree);
 
-        if (typeof value1 === 'object' && typeof value2 === 'object') {
-          const nestedDiff = compareObjects(value1, value2, depth + 1);
-          if (nestedDiff !== '') {
-            result.push(`${' '.repeat(depth * 2)}  ${key}: ${nestedDiff}`);
-          }
-        } else if (value1 !== value2) {
-          result.push(`${' '.repeat(depth * 2)}- ${key}: ${JSON.stringify(value1)}`);
-          result.push(`${' '.repeat(depth * 2)}+ ${key}: ${JSON.stringify(value2)}`);
-        }
-      } else {
-        result.push(`${' '.repeat(depth * 2)}- ${key}: ${JSON.stringify(obj1[key])}`);
-      }
-    });
-
-    keys2.forEach((key) => {
-      if (!keys1.includes(key)) {
-        result.push(`${'-'.repeat(depth * 2)}+ ${key}: ${JSON.stringify(obj2[key])}`);
-      }
-    });
-  };
-
-  compareObjects(makeObject1, makeObject2);
-
-  result.sort();
-
-  const resultToString = result.join('\n');
-  return resultToString;
+  return formattedDiff;
 };
+
 
 export default gendiff;
