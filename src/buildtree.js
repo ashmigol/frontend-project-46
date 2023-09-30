@@ -1,3 +1,4 @@
+
 // Функция для построения дерева отличий между двумя объектами
 const buildDiffTree = (obj1, obj2, depth = 0) => {
     let result = []; // Массив для хранения различий
@@ -26,7 +27,7 @@ const buildDiffTree = (obj1, obj2, depth = 0) => {
         }
       } else {
         // Если ключ присутствует только в первом объекте, добавляем его в результат
-        result.push(`${" ".repeat(depth * 2)} ${key}: ${JSON.stringify(obj1[key])}`);
+        result.push(`${" ".repeat(depth * 2)}- ${key}: ${JSON.stringify(obj1[key])}`);
       }
     });
   
@@ -34,7 +35,7 @@ const buildDiffTree = (obj1, obj2, depth = 0) => {
     keys2.forEach((key) => {
       // Если ключ присутствует только во втором объекте, добавляем его в результат
       if (!keys1.includes(key)) {
-        result.push(`${"-".repeat(depth * 2)}+ ${key}: ${JSON.stringify(obj2[key])}`);
+        result.push(`${" ".repeat(depth * 2)}+ ${key}: ${JSON.stringify(obj2[key])}`);
       }
     });
   

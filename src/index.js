@@ -1,29 +1,34 @@
+import _ from 'lodash';
 import fs from "fs";
 import path from "path";
-import parse from "./parses.js";
-import buildDiffTree from './buildtree.js'
-import formatDiffTree from './formatter.js';
+import parse from './parses.js';
 
-const extractFormat = (filePath) => path.extname(filePath);
-//const getData = filePath;
-const fullPath = (filepath) => path.resolve(process.cwd(), filepath);
-//const flpt = '/mnt/c/study/projects/1/frontend-project-46/src/testFile.json';
+const gendiff = (filePath1, filePath2) => {
+  let result = '';
+  const data1 = fs.readFileSync(filePath1, 'utf-8');
+  const data2 = fs.readFileSync(filePath2, 'utf-8');
+  const parsedFile1 = parse(data1, filePath1);
+  const parsedFile2 = parse(data2, filePath2);
+  const keys1 = _.keys(parsedFile1);
+  const keys2 = _.keys(parsedFile2);
+  const commonUniqKeys = _.union(keys1, keys2).sort();
 
-const getData = (filepath) => {
-  const patch = fullPath(filepath);
-  return parse(fs.readFileSync(patch), extractFormat(filepath));
-};
+  commonUniqKeys.forEach(key => {
+    if (parsedFile1[key] === parsedFile2[key]) {
+      result += `  ${key}: ${parsedFile1[key]}\n`; // Добавил пробелы перед ключами и использовал формат "ключ: значение"
+    } else if (keys1.includes(key) && keys2.includes(key)) {
+      result += `- ${key}: ${parsedFile1[key]}\n`; // Добавил пробел и знак "-" перед ключами и использовал формат "ключ: значение"
+      result += `+ ${key}: ${parsedFile2[key]}\n`; // Добавил пробел и знак "+" перед ключами и использовал формат "ключ: значение"
+    } else if (keys1.includes(key)) {
+      result += `- ${key}: ${parsedFile1[key]}\n`; // Добавил пробел и знак "-" перед ключами и использовал формат "ключ: значение"
+    } else if (keys2.includes(key)) {
+      result += `+ ${key}: ${parsedFile2[key]}\n`; // Добавил пробел и знак "+" перед ключами и использовал формат "ключ: значение"
+    }
+  });
 
-const gendiff = (filepath1, filepath2) => {
-  const makeObject1 = getData(filepath1);
-  const makeObject2 = getData(filepath2);
+  //console.log(keys1);
 
+  return `{\n${result}}`; 
+}
 
-  const diffTree = buildDiffTree(makeObject1, makeObject2);
-  const formattedDiff = formatDiffTree(diffTree);
-
-  return formattedDiff;
-};
-
-
-export default gendiff;
+export default gendiff

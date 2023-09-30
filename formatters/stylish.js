@@ -23,21 +23,41 @@ const stringify = (value, replacer = '.', count = 4, depth = 1) => {
   return `{\n${properties.join('\n')}\n${lastIndent}}`;
 };
 
-export default stringify;
+const formatDiffTree = (diffTree, depth = 1) => {
+  const indentSize = depth * 4;
+  const currentIndent = ' '.repeat(indentSize);
+  const lastIndent = ' '.repeat(indentSize - 4);
 
-const testObject = {
-  name: 'John Doe',
-  age: 30,
-  address: {
-    city: 'New York',
-    country: 'USA',
-  },
-  hobbies: ['reading', 'swimming', 'coding'],
-  details: {
-    occupation: 'Software Engineer',
-    experience: 5,
-  },
+  const diffLines = diffTree.map((node) => {
+    const { key, type, value } = node;
+
+    if (type === 'nested') {
+      const nestedLines = formatDiffTree(value, depth + 1);
+      return `${currentIndent}${key}: {\n${nestedLines}\n${lastIndent}}`;
+    }
+
+    if (type === 'added') {
+      return `${currentIndent}+ ${key}: ${stringify(value, ' ', 2, depth)}`;
+    }
+
+    if (type === 'deleted') {
+      return `${currentIndent}- ${key}: ${stringify(value, ' ', 2, depth)}`;
+    }
+
+    if (type === 'changed') {
+      const oldValue = stringify(value.oldValue, ' ', 2, depth);
+      const newValue = stringify(value.newValue, ' ', 2, depth);
+      return `${currentIndent}- ${key}: ${oldValue}\n${currentIndent}+ ${key}: ${newValue}`;
+    }
+
+    return `${currentIndent}  ${key}: ${stringify(value, ' ', 2, depth)}`;
+  });
+
+  return diffLines.join('\n');
 };
 
+export default function stylish(diffTree) {
+  return `{\n${formatDiffTree(diffTree)}\n}`;
+}
 //const result = stringify(testObject);
 //console.log(result);
