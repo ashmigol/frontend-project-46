@@ -2,6 +2,7 @@ import parseFile from '../src/parses.js';
 import fs from 'fs';
 import yaml from 'js-yaml';
 
+
 test('parseFile', () => {
     const filePath = '../__fixtures__/testFile.json';
     const expectedJsonData = fs.readFileSync('../__fixtures__/testResultParseJson', 'utf8');
