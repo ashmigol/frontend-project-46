@@ -17,5 +17,5 @@ test('should throw error for unsupported file format', () => {
   const unsupportedFileData = fs.readFileSync(unsupportedFilePath, 'utf8');
   expect(() => {
     parseFile(unsupportedFileData, unsupportedFilePath);
-  }).toThrowError("Unsupported file format: 'py'! Try another format.");
+  }).toThrowError(new Error("Unsupported file format: 'py'! Try another format."));
 });
