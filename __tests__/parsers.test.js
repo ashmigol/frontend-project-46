@@ -16,7 +16,7 @@ test('parseFile', () => {
 test('should throw error for unsupported file format', () => {
   const unsupportedFilePath = '/mnt/f/study/frontend-project-46/__fixtures__/file.py';
   const unsupportedFileData = fs.readFileSync(unsupportedFilePath, 'utf8');
-  expect(() => {
-    parseFile(unsupportedFileData, unsupportedFilePath);
-  }).toThrowError(new Error("Unsupported file format: 'py'! Try another format."));
+  expect(() => {    
+    return parseFile(unsupportedFileData, unsupportedFilePath);
+  }).toThrow(new Error("Unsupported file format: 'py'! Try another format."));
 });
