@@ -1,18 +1,36 @@
+import { readFileSync } from 'fs';
+import { fileURLToPath } from 'url';
+import path from 'path';
 import genDiff from '../src/index.js';
 
-import fs from 'fs';
-import path from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
-test('genDiff', () => {
-  expect(
-    genDiff('/mnt/f/study/frontend-project-46/__fixtures__/testFile.json', '/mnt/f/study/frontend-project-46/__fixtures__/testFile2.json')
-  ).toEqual(fs.readFileSync('/mnt/f/study/frontend-project-46/__fixtures__/testResultIndex', 'utf8'));
+const readFile = (filename) => readFileSync(getFixturePath(filename), 'utf-8');
+const excpectedStylish = readFile('correct_stylish.txt');
 
-  expect(genDiff('/mnt/f/study/frontend-project-46/__fixtures__/file1.yaml', '/mnt/f/study/frontend-project-46/__fixtures__/file2.yaml')).toEqual(
-    fs.readFileSync('/mnt/f/study/frontend-project-46/__fixtures__/testResultIndex', 'utf8')
-  );
 
-  expect(genDiff('/mnt/f/study/frontend-project-46/__fixtures__/file.py', '/mnt/f/study/frontend-project-46/__fixtures__/file2.yaml')).toEqual(
-    fs.readFileSync('/mnt/f/study/frontend-project-46/__fixtures__/testResultUnsupp', 'utf8')
-  );
+describe('comparison', () => {
+  test('json', () => {
+    const filepath1 = getFixturePath('file1.json');
+    const filepath2 = getFixturePath('file2.json');
+
+    expect(genDiff(filepath1, filepath2)).toEqual(excpectedStylish);
+  });
+
+  test('yaml/yml', () => {
+    const filepath1 = getFixturePath('file1.yaml');
+    const filepath2 = getFixturePath('file2.yml');
+
+    expect(genDiff(filepath1, filepath2)).toEqual(excpectedStylish);
+  });
+
+  test('the presence of an error', () => {
+    const filepath1 = getFixturePath('file1.yaml');
+    const filepath2 = getFixturePath('file2.yml');
+    const filepath3 = getFixturePath('file2.txt');
+
+    expect(() => genDiff(filepath2, filepath3)).toThrow(new Error('Unsupported file format: \'.txt\'! Try another format.'));
+  });
 });

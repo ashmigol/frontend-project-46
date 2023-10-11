@@ -1,21 +1,39 @@
-const stylish = (tree) => {
-  let result = '';
-    result = tree.map((node) => {
+import _ from 'lodash';
+
+const indent = (depth = 1, isFull = false) => {
+  if (isFull) {
+    return ' '.repeat(4 * depth).slice(2);
+  }
+  return ' '.repeat(4 * depth);
+};
+
+const stringify = (data, depth) => {
+  if(!_.isObject(data)) {
+    return String(data);
+  }
+  const output = Object.entries(data).map(([key, value]) => `${indent(depth + 1)}${key}: ${stringify(value, depth + 1)}`);
+
+  return `{\n${output.flat().join('\n')}\n${indent(depth)}}`;
+};
+
+const stylish = (tree, depth) => {
+  
+    tree.map((node) => {
       switch(node.status) {
         case 'added':
-          return ` + ${node.key}: ${node.value}`;
+          return `${indent(depth, true)}+ ${node.key}: ${stringify(node.value, depth)}`;
         case 'deleted':
-          return ` - ${node.key}: ${node.value}`;
+          return `${indent(depth, true)}- ${node.key}: ${stringify(node.value, depth)}`;
         case 'unchanged':
-          return `   ${node.key}: ${node.value}`;
+          return `${indent(depth, false)}${node.key}: ${stringify(node.value, depth)}`;
         case 'changed':
-          return ` - ${node.key}: ${node.value}`;
-        case 'changedInSecondObject':
-          return ` + ${node.key}: ${node.value}`;
+          return `${indent(depth, true)}- ${node.key}: ${stringify(node.value, depth)}\n${indent(depth, true)}+ ${node.key}: ${stringify(node.value, depth)}`;
+        case 'nested':
+          return `${indent(depth)}${node.key}: {\n${stylish(node.children, depth + 1).join('\n')}\n${indent(depth)}}`;
       }
     }).join('\n');
   
-  return `{\n${result}\n}`;
+  
 }
 
 export default stylish;
