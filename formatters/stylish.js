@@ -18,7 +18,7 @@ const stringify = (data, depth) => {
 
 const stylish = (tree, depth) => {
   
-    tree.map((node) => {
+    return tree.map((node) => {
       switch(node.status) {
         case 'added':
           return `${indent(depth, true)}+ ${node.key}: ${stringify(node.value, depth)}`;
