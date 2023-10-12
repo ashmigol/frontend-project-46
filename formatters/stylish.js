@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const indent = (depth = 1, isFull = false) => {
+const indent = (depth, isFull = false) => {
   if (isFull) {
     return ' '.repeat(4 * depth).slice(2);
   }
@@ -26,7 +26,7 @@ const stylish = (tree, depth) => {
       case 'unchanged':
         return `${indent(depth, false)}${node.key}: ${stringify(node.value, depth)}`;
       case 'changed':
-        return `${indent(depth, true)}- ${node.key}: ${stringify(node.value, depth)}\n${indent(depth, true)}+ ${node.key}: ${stringify(node.value, depth)}`;
+        return `${indent(depth, true)}- ${node.key}: ${stringify(node.value1, depth)}\n${indent(depth, true)}+ ${node.key}: ${stringify(node.value2, depth)}`;
       case 'nested':
         return `${indent(depth)}${node.key}: {\n${stylish(node.children, depth + 1)}\n${indent(depth)}}`;
     }
