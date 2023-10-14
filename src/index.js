@@ -11,7 +11,7 @@ const gendiff = (filePath1, filePath2) => {
   const parsedFile1 = parse(data1, filePath1);
   const parsedFile2 = parse(data2, filePath2);
   const tree = buildTree(parsedFile1, parsedFile2);
-  return stylish(tree);
+  return `{\n${stylish(tree)}\n}`;
 };
 
 export default gendiff

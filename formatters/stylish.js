@@ -24,7 +24,7 @@ const stylish = (tree, depth = 1) => {
       case 'deleted':
         return `${indent(depth, true)}- ${node.key}: ${stringify(node.value, depth)}`;
       case 'unchanged':
-        return `${indent(depth, true)} ${node.key}: ${stringify(node.value, depth)}`;
+        return `${indent(depth, true)}  ${node.key}: ${stringify(node.value, depth)}`;
       case 'changed':
         return `${indent(depth, true)}- ${node.key}: ${stringify(node.value1, depth)}\n${indent(depth, true)}+ ${node.key}: ${stringify(node.value2, depth)}`;
       case 'nested':

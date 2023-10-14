@@ -4,7 +4,7 @@ const buildTree = (Object1, Object2) => {
 
   const keys1 = _.keys(Object1);
   const keys2 = _.keys(Object2);
-  const commonKeys = _.sortBy(_.union(keys1, keys2));
+  const commonKeys = _.sortBy(_.union(keys1, keys2)); // обьеденяем и возвращаем уникальные значения отсортированые по алфавиту 
   
   return commonKeys.map((key) => {
     if (!_.has(Object1, key)) {
