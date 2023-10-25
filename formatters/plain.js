@@ -1,20 +1,35 @@
 import _ from 'lodash';
 
-const getPlain = (tree, parent) => {
-    return tree.map((node) => {
-      switch(node.status) {
-        case 'added':
-          return `Property '${node.key}' was added with value ${node.value}`;
-        case 'deleted':
-          return `Property '${node.key}' was removed`;
-        // case 'unchanged':
-        //   return `${indent(depth, true)}  ${node.key}: ${stringify(node.value, depth)}`;
-        case 'changed':
-          return `${indent(depth, true)}- ${node.key}: ${stringify(node.value1, depth)}\n${indent(depth, true)}+ ${node.key}: ${stringify(node.value2, depth)}`;
-        case 'nested':
-          return `${indent(depth, true)}  ${node.key}: {\n${stylish(node.children, depth + 1)}\n${indent(depth)}}`;
-      }
-    }).flat().join('\n');
-  };
+const stringify = (value) => {
+  if (_.isObject(value)) {
+    return '[complex value]';
+  }
+  if (_.isString(value)) {
+    return String(`'${value}'`);
+  }
+  return String(value);
+};
+
+const iter = (tree, parent) => tree.flatMap((node) => {
+  switch (node.status) {
+    case 'added':
+      return `Property '${[...parent, node.key].join('.')}' was added with value: ${stringify(node.value)}`;
+    case 'deleted':
+      return `Property '${[...parent, node.key].join('.')}' was removed`;
+    case 'unchanged':
+      return [];
+    case 'changed':
+      return `Property '${[...parent, node.key].join('.')}' was updated. From ${stringify(node.value1)} to ${stringify(node.value2)}`;
+    case 'nested':
+      return `${iter(node.children, [[...parent, node.key].join('.')]).join('\n')}`;
+    default:
+      throw new Error(`Type: ${node.type} is undefined`);
+  }
+});
+
+const getPlain = (diff) => {
+  const plainDiff = iter(diff, []).join('\n');
+  return plainDiff;
+};
   
   export default getPlain;

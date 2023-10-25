@@ -1,7 +1,42 @@
 ### Hexlet tests and linter status:
 
+### Hexlet tests and linter status:
 [![Actions Status](https://github.com/ashmigol/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/ashmigol/frontend-project-46/actions)
+### Maintainability
 [![Lint](https://github.com/ashmigol/frontend-project-46/workflows/Lint/badge.svg)](https://github.com/ashmigol/frontend-project-46/actions?query=workflow%3ALint)
+### Maintainability
 [![Maintainability](https://api.codeclimate.com/v1/badges/473740f3e2277ad44008/maintainability)](https://codeclimate.com/github/ashmigol/frontend-project-46/maintainability)
+### Test Coverage
 [![Test Coverage](https://api.codeclimate.com/v1/badges/473740f3e2277ad44008/test_coverage)](https://codeclimate.com/github/ashmigol/frontend-project-46/test_coverage)
-[![asciicast](https://asciinema.org/a/e52622e3-e4d4-45d4-ae2a-eef152bf7158.png)](https://asciinema.org/a/e52622e3-e4d4-45d4-ae2a-eef152bf7158)
+
+### Проект "Вычислитель Отличий"
+Вычислитель отличий – программа, определяющая разницу между двумя структурами данных.
+Подобный механизм используется при выводе тестов или при автоматическом отслеживании изменении в конфигурационных файлах.
+## Возможности утилиты:
+
+Поддержка разных входных форматов: yaml, json
+Генерация отчета в виде plain text, stylish и json
+ ### Установка
+```
+  make install
+```
+
+### Пример работы  файлов с раширением .json
+```
+  gendiff __fixtures__/file1.json __fixtures__/file2.json
+```
+[![asciicast](https://asciinema.org/a/XrMmdgzOrBpkVipwiy2Zkj43a.png)](https://asciinema.org/a/XrMmdgzOrBpkVipwiy2Zkj43a)
+
+### Пример работы файлов с раширением .yaml / .yml
+```
+  gendiff __fixtures__/file1.yaml __fixtures__/file2.yml
+```
+[![asciicast](https://asciinema.org/a/ZVBHSKJhFdpuuiL2CukbCFswm.png)](https://asciinema.org/a/ZVBHSKJhFdpuuiL2CukbCFswm)
+
+
+
+### Пример работы приложения с форматтером plain
+```
+  gendiff --format plain __fixtures__/file1.json __fixtures__/file2.json
+```
+[![asciicast](https://asciinema.org/a/W7oDVayWMsCzPEQ5b7y0PEs7Q.png)](https://asciinema.org/a/W7oDVayWMsCzPEQ5b7y0PEs7Q)
