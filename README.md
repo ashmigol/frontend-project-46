@@ -1,8 +1,7 @@
-### Hexlet tests and linter status:
 
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/ashmigol/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/ashmigol/frontend-project-46/actions)
-### Maintainability
+### Linter
 [![Lint](https://github.com/ashmigol/frontend-project-46/workflows/Lint/badge.svg)](https://github.com/ashmigol/frontend-project-46/actions?query=workflow%3ALint)
 ### Maintainability
 [![Maintainability](https://api.codeclimate.com/v1/badges/473740f3e2277ad44008/maintainability)](https://codeclimate.com/github/ashmigol/frontend-project-46/maintainability)
@@ -40,3 +39,10 @@
   gendiff --format plain __fixtures__/file1.json __fixtures__/file2.json
 ```
 [![asciicast](https://asciinema.org/a/W7oDVayWMsCzPEQ5b7y0PEs7Q.png)](https://asciinema.org/a/W7oDVayWMsCzPEQ5b7y0PEs7Q)
+
+### Пример работы приложения с форматтером plain
+```
+  gendiff --format json __fixtures__/file1.json __fixtures__/file2.json
+```
+
+[![asciicast](https://asciinema.org/a/CfN4K28FamA6xrpO4QXYfNO7s.png)](https://asciinema.org/a/CfN4K28FamA6xrpO4QXYfNO7s)
