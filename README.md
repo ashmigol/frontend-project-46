@@ -38,9 +38,10 @@
 ```
   gendiff --format plain __fixtures__/file1.json __fixtures__/file2.json
 ```
+
 [![asciicast](https://asciinema.org/a/W7oDVayWMsCzPEQ5b7y0PEs7Q.png)](https://asciinema.org/a/W7oDVayWMsCzPEQ5b7y0PEs7Q)
 
-### Пример работы приложения с форматтером plain
+### Пример работы приложения с форматтером json
 ```
   gendiff --format json __fixtures__/file1.json __fixtures__/file2.json
 ```
