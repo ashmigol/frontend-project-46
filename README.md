@@ -46,7 +46,7 @@
   gendiff --format plain __fixtures__/file1.json __fixtures__/file2.json
 ```
 
-[![asciicast](https://asciinema.org/a/W7oDVayWMsCzPEQ5b7y0PEs7Q.png)](https://asciinema.org/a/W7oDVayWMsCzPEQ5b7y0PEs7Q)
+[![asciicast](https://asciinema.org/a/CfN4K28FamA6xrpO4QXYfNO7s.png)](https://asciinema.org/a/CfN4K28FamA6xrpO4QXYfNO7s)
 
 
 ### Пример работы приложения с форматтером json
