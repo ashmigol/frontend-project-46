@@ -3,9 +3,9 @@
 
 [![Actions Status](https://github.com/ashmigol/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/ashmigol/frontend-project-46/actions)
 
-### Linter:
+###  Node CI
 
-[![Lint](https://github.com/ashmigol/frontend-project-46/workflows/Lint/badge.svg)](https://github.com/ashmigol/frontend-project-46/actions?query=workflow%3ALint)
+[![Node CI](https://github.com/ashmigol/frontend-project-46/actions/workflows/node.js.yml/badge.svg)](https://github.com/ashmigol/frontend-project-46/actions/workflows/node.js.yml)
 
 ### Maintainability:
 
