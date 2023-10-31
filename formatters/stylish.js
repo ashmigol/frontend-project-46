@@ -16,7 +16,7 @@ const stringify = (data, depth) => {
   return `{\n${output.flat().join('\n')}\n${indent(depth)}}`;
 };
 
-const stylish = (tree, depth = 1) => {
+const getStylish = (tree, depth = 1) => {
   return tree.map((node) => {
     switch(node.status) {
       case 'added':
@@ -28,9 +28,9 @@ const stylish = (tree, depth = 1) => {
       case 'changed':
         return `${indent(depth, true)}- ${node.key}: ${stringify(node.value1, depth)}\n${indent(depth, true)}+ ${node.key}: ${stringify(node.value2, depth)}`;
       case 'nested':
-        return `${indent(depth, true)}  ${node.key}: {\n${stylish(node.children, depth + 1)}\n${indent(depth)}}`;
+        return `${indent(depth, true)}  ${node.key}: {\n${getStylish(node.children, depth + 1)}\n${indent(depth)}}`;
     }
   }).flat().join('\n');
 };
 
-export default stylish;
+export default getStylish;
