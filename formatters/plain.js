@@ -28,7 +28,7 @@ const iter = (tree, parent) => tree.flatMap((node) => {
 });
 
 const getPlain = (diff) => {
-  const plainDiff = iter(diff, []).join('\r\n');
+  const plainDiff = iter(diff, []).join('\n');
   return plainDiff;
 };
   
