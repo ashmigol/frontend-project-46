@@ -31,5 +31,5 @@ const getPlain = (diff) => {
   const plainDiff = iter(diff, []).join('\n');
   return plainDiff;
 };
-  
-  export default getPlain;
+
+export default getPlain;

@@ -42,7 +42,6 @@ describe('comparison', () => {
   });
 
   test('the presence of an error', () => {
-    const filepath1 = getFixturePath('file1.yaml');
     const filepath2 = getFixturePath('file2.yml');
     const filepath3 = getFixturePath('file2.txt');
 

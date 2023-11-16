@@ -1,4 +1,5 @@
 import _ from 'lodash';
+
 const buildTree = (Object1, Object2) => {
   const keys1 = _.keys(Object1);
   const keys2 = _.keys(Object2);
@@ -23,4 +24,4 @@ const buildTree = (Object1, Object2) => {
   });
 };
 
-export default buildTree
+export default buildTree;
