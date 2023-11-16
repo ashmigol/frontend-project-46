@@ -21,14 +21,14 @@ const iter = (tree, parent) => tree.flatMap((node) => {
     case 'changed':
       return `Property '${[...parent, node.key].join('.')}' was updated. From ${stringify(node.value1)} to ${stringify(node.value2)}`;
     case 'nested':
-      return `${iter(node.children, [[...parent, node.key].join('.')]).join('\r\n')}`;
+      return `${iter(node.children, [[...parent, node.key].join('.')]).join('\n')}`;
     default:
       throw new Error(`Type: ${node.type} is undefined`);
   }
 });
 
 const getPlain = (diff) => {
-  const plainDiff = iter(diff, []).join('\r\n');
+  const plainDiff = iter(diff, []).join('\n');
   return plainDiff;
 };
   
