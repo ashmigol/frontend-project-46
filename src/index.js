@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import fs from 'fs';
 import parse from './parses.js';
 import buildTree from './buildtree.js';
