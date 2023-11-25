@@ -1,7 +1,7 @@
 import fs from 'fs';
 import parse from './parses.js';
 import buildTree from './buildtree.js';
-import getReport from '../formatters/index.js';
+import getReport from './formatters/index.js';
 
 const gendiff = (filePath1, filePath2, format = 'stylish') => {
   const data1 = fs.readFileSync(filePath1, 'utf-8');
