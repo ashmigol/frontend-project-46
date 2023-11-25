@@ -18,12 +18,12 @@ describe.each([
   ['json', expectedJson],
 ])('format: %s', (format, expected) => {
   test.each([
-    ['file1.json', 'file2.json'],
-    ['file1.yaml', 'file2.yml'],
-    ['file1.json', 'file2.json'],
-    ['file1.json', 'file2.json'],
-  ])('compare files in %s format', (file1, file2) => {
-    test(`compare ${file1} and ${file2} in ${format} format`, () => {
+    ['file1.json', 'file2.json', 'json'],
+    ['file1.yaml', 'file2.yml', 'yaml'],
+    ['file1.json', 'file2.json', 'json'],
+    ['file1.json', 'file2.json', 'json'],
+  ])('compare files in %s format', (file1, file2, fileFormat) => {
+    test(`compare ${file1} and ${file2} in ${fileFormat} format`, () => {
       expect(genDiff(getFixturePath(file1), getFixturePath(file2), format)).toEqual(expected);
     });
   });
