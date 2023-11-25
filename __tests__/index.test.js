@@ -12,26 +12,39 @@ const expectedStylish = readFile('correct_stylish.txt');
 const expectedPlain = readFile('correct_plain.txt');
 const expectedJson = readFile('correct_json.txt');
 
-describe.each([
-  ['stylish', expectedStylish],
-  ['plain', expectedPlain],
-  ['json', expectedJson],
-])('format: %s', (format, expected) => {
-  test.each([
-    ['file1.json', 'file2.json', 'json'],
-    ['file1.yaml', 'file2.yml', 'yaml'],
-    ['file1.json', 'file2.json', 'json'],
-    ['file1.json', 'file2.json', 'json'],
-  ])('compare files in %s format', (file1, file2, fileFormat) => {
-    test(`compare ${file1} and ${file2} in ${fileFormat} format`, () => {
-      expect(genDiff(getFixturePath(file1), getFixturePath(file2), format)).toEqual(expected);
-    });
+describe('comparison', () => {
+  test('json1', () => {
+    const filepath1 = getFixturePath('file1.json');
+    const filepath2 = getFixturePath('file2.json');
+
+    expect(genDiff(filepath1, filepath2)).toEqual(expectedStylish);
   });
-});
 
-test('the presence of an error', () => {
-  const filepath2 = getFixturePath('file2.yml');
-  const filepath3 = getFixturePath('file2.txt');
+  test('yaml/yml', () => {
+    const filepath1 = getFixturePath('file1.yaml');
+    const filepath2 = getFixturePath('file2.yml');
 
-  expect(() => genDiff(filepath2, filepath3)).toThrow(new Error('Unsupported file format: \'.txt\'! Try another format.'));
+    expect(genDiff(filepath1, filepath2)).toEqual(expectedStylish);
+  });
+
+  test('plain', () => {
+    const filepath1 = getFixturePath('file1.json');
+    const filepath2 = getFixturePath('file2.json');
+
+    expect(genDiff(filepath1, filepath2, 'plain')).toEqual(expectedPlain);
+  });
+
+  test('json2', () => {
+    const filepath1 = getFixturePath('file1.json');
+    const filepath2 = getFixturePath('file2.json');
+
+    expect(genDiff(filepath1, filepath2, 'json')).toEqual(expectedJson);
+  });
+
+  test('the presence of an error', () => {
+    const filepath2 = getFixturePath('file2.yml');
+    const filepath3 = getFixturePath('file2.txt');
+
+    expect(() => genDiff(filepath2, filepath3)).toThrow(new Error('Unsupported file format: \'.txt\'! Try another format.'));
+  });
 });
