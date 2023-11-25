@@ -13,7 +13,7 @@
 
 ### Test Coverage:
 
-[![Test Coverage](https://api.codeclimate.com/v1/badges/473740f3e2277ad44008/test_coverage)](https://codeclimate.com/github/ashmigol/frontend-project-46/test_coverage)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/44b0c9875f6026c95e46/test_coverage)](https://codeclimate.com/github/ashmigol/frontend-project-46/test_coverage)
 
 ### Проект "Вычислитель Отличий"
 Вычислитель отличий – программа, определяющая разницу между двумя структурами данных.
