@@ -26,7 +26,10 @@
 ```
   make install
 ```
-
+### Системные требования
+```
+Node.js version v18.15.0
+```
 ### Пример работы  файлов с раширением .json
 ```
   gendiff __fixtures__/file1.json __fixtures__/file2.json
