@@ -6,8 +6,7 @@ import getReport from './formatters/index.js';
 const gendiff = (filePath1, filePath2, format = 'stylish') => {
   const getDataFromFile = (filePath) => {
     const data = fs.readFileSync(filePath, 'utf-8');
-    const fileType = filePath.split('.').slice(-1)[0];
-    const parsedData = parse(data, fileType);
+    const parsedData = parse(data, filePath);
     return parsedData;
   };
   
