@@ -10,7 +10,6 @@ const gendiff = (filePath1, filePath2, format = 'stylish') => {
     const parsedData = parse(data, fileType);
     return parsedData;
   };
-  
   const parsedFile1 = getDataFromFile(filePath1);
   const parsedFile2 = getDataFromFile(filePath2);
   const tree = buildTree(parsedFile1, parsedFile2);
