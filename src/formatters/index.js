@@ -4,7 +4,7 @@ import getPlain from './plain.js';
 const getReport = (data, format) => {
   switch (format) {
     case 'stylish':
-      return `{${getStylish(data)}}`;
+      return `{\n${getStylish(data)}\n}`;
     case 'plain':
       return getPlain(data);
     case 'json':
