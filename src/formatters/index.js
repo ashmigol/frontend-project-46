@@ -4,11 +4,11 @@ import getPlain from './plain.js';
 const getReport = (data, format) => {
   switch (format) {
     case 'stylish':
-      return `{\n${getStylish(data)}\n}`;
+      return `{${getStylish(data)}}`;
     case 'plain':
       return getPlain(data);
     case 'json':
-      return JSON.stringify(data, null);
+      return JSON.stringify(data, null, 2);
     default:
       throw new Error(`Invalid format: '${format}'! Use a different format.`);
   }

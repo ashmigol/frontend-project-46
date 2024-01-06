@@ -34,7 +34,7 @@ const getStylish = (tree, depth = 1) => {
     }
   });
 
-  return result.flat().join('\n');
+  return `\n${result.flat().join('\n')}\n`;
 };
 
 export default getStylish;
