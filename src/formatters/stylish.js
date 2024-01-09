@@ -32,9 +32,9 @@ const getStylish = (tree, depth = 1) => {
       default:
         throw new Error(`Unknown node status: ${node.status}`);
     }
-  });
-
-  return `${result.flat().join('\n')}`;
+  }).flat().join('\n');
+  
+  return `${result}`;
 };
 
 export default getStylish;
