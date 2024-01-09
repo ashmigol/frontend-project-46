@@ -8,7 +8,7 @@ const getReport = (data, format) => {
     case 'plain':
       return getPlain(data);
     case 'json':
-      return JSON.stringify(data, null, 2).trim();
+      return JSON.stringify(data, null);
     default:
       throw new Error(`Invalid format: '${format}'! Use a different format.`);
   }
