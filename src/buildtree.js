@@ -1,26 +1,26 @@
 import _ from 'lodash';
 
-const buildTree = (Object1, Object2) => {
-  const keys1 = _.keys(Object1);
-  const keys2 = _.keys(Object2);
+const buildTree = (object1, object2) => {
+  const keys1 = _.keys(object1);
+  const keys2 = _.keys(object2);
   const commonKeys = _.sortBy(_.union(keys1, keys2));
 
   return commonKeys.map((key) => {
-    if (!_.has(Object1, key)) {
+    if (!_.has(object1, key)) {
       return { key, status: 'added', value: Object2[key] };
     }
     if (!_.has(Object2, key)) {
-      return { key, status: 'deleted', value: Object1[key] };
+      return { key, status: 'deleted', value: object1[key] };
     }
-    if (_.isPlainObject(Object1[key]) && _.isPlainObject(Object2[key])) {
-      return { key, status: 'nested', children: buildTree(Object1[key], Object2[key]) };
+    if (_.isPlainObject(object1[key]) && _.isPlainObject(object2[key])) {
+      return { key, status: 'nested', children: buildTree(object1[key], Object2[key]) };
     }
-    if (!_.isEqual(Object1[key], Object2[key])) {
+    if (!_.isEqual(object1[key], Object2[key])) {
       return {
-        key, status: 'changed', value1: Object1[key], value2: Object2[key],
+        key, status: 'changed', value1: object1[key], value2: Object2[key],
       };
     }
-    return { key, status: 'unchanged', value: Object1[key] };
+    return { key, status: 'unchanged', value: object1[key] };
   });
 };
 
