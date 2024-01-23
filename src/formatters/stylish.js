@@ -1,6 +1,5 @@
 import _ from 'lodash';
 
-
 const indent = (depth, isFull = false) => {
   const INDENT_SIZE = 4;
   const SPACE = ' ';
