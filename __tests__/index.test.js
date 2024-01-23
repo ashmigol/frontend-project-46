@@ -12,39 +12,20 @@ const expectedStylish = readFile('correct_stylish.txt');
 const expectedPlain = readFile('correct_plain.txt');
 const expectedJson = readFile('correct_json.txt');
 
-describe('comparison', () => {
-  test('json1', () => {
-    const filepath1 = getFixturePath('file1.json');
-    const filepath2 = getFixturePath('file2.json');
-
-    expect(genDiff(filepath1, filepath2)).toEqual(expectedStylish);
+describe.each([
+  ['file1.json', 'file2.json', 'stylish', expectedStylish],
+  ['file1.yaml', 'file2.yml', 'stylish', expectedStylish],
+  ['file1.json', 'file2.json', 'plain', expectedPlain],
+  ['file1.json', 'file2.json', 'json', expectedJson],
+])('comparison', (file1, file2, format, expected) => {
+  test(`compare ${file1} and ${file2} in ${format} format`, () => {
+    expect(genDiff(getFixturePath(file1), getFixturePath(file2), format)).toEqual(expected);
   });
+});
 
-  test('yaml/yml', () => {
-    const filepath1 = getFixturePath('file1.yaml');
-    const filepath2 = getFixturePath('file2.yml');
-
-    expect(genDiff(filepath1, filepath2)).toEqual(expectedStylish);
-  });
-
-  test('plain', () => {
-    const filepath1 = getFixturePath('file1.json');
-    const filepath2 = getFixturePath('file2.json');
-
-    expect(genDiff(filepath1, filepath2, 'plain')).toEqual(expectedPlain);
-  });
-
-  test('json2', () => {
-    const filepath1 = getFixturePath('file1.json');
-    const filepath2 = getFixturePath('file2.json');
-
-    expect(genDiff(filepath1, filepath2, 'json')).toEqual(expectedJson);
-  });
-
-  test('the presence of an error', () => {
-    const filepath2 = getFixturePath('file2.yml');
-    const filepath3 = getFixturePath('file2.txt');
-
-    expect(() => genDiff(filepath2, filepath3)).toThrow(new Error('Unsupported file format: \'.txt\'! Try another format.'));
-  });
+test('the presence of an error', () => {
+  const file2 = getFixturePath('file2.yml');
+  const file3 = getFixturePath('file2.txt');
+  const errorMessage = 'Unsupported file format: \'.txt\'! Try another format.';
+  expect(() => genDiff(file2, file3)).toThrow(new Error(errorMessage));
 });
