@@ -1,7 +1,6 @@
 import yaml from 'js-yaml';
 
-const parseFile = (data, filePath) => {
-  const fileExtension = filePath.split('.').slice(-1)[0];
+const parseFile = (data, fileExtension) => {
   switch (fileExtension) {
     case 'json':
       return JSON.parse(data);
