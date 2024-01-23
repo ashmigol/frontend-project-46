@@ -1,10 +1,13 @@
 import _ from 'lodash';
 
+
 const indent = (depth, isFull = false) => {
+  const INDENT_SIZE = 4;
+  const SPACE = ' ';
   if (isFull) {
-    return ' '.repeat(4 * depth).slice(2);
+    return SPACE.repeat(INDENT_SIZE * depth).slice(2);
   }
-  return ' '.repeat(4 * depth);
+  return SPACE.repeat(INDENT_SIZE * depth);
 };
 
 const stringify = (data, depth) => {
