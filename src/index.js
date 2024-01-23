@@ -10,11 +10,11 @@ const getDataFromFile = (filePath) => {
   return parsedData;
 };
 
-const gendiff = (filePath1, filePath2, format = 'stylish') => {
+const getDiff = (filePath1, filePath2, format = 'stylish') => {
   const parsedFile1 = getDataFromFile(filePath1);
   const parsedFile2 = getDataFromFile(filePath2);
   const tree = buildTree(parsedFile1, parsedFile2);
   return getReport(tree, format);
 };
 
-export default gendiff;
+export default getDiff;
